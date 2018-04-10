@@ -44,30 +44,25 @@ void add_polygon( struct matrix *polygons,
 void draw_polygons( struct matrix *polygons, screen s, color c ) { //void draw_line(int x0, int y0, int x1, int y1, screen s, color c)
   int i;
   for(i = 0; i < polygons->lastcol; i+= 3){
-    int x0, y0, z0, x1, y1, z1, x2, y2, z2;
-    polygons->m[i][0] = x0;
-    polygons->m[i][1] = y0;
-    polygons->m[i][2] = z0;
+    int x0, y0, x1, y1, x2, y2;
+    x0 = polygons->m[i][0];
+    y0 = polygons->m[i][1];
 
-    polygons->m[i + 1][0] = x1;
-    polygons->m[i + 1][1] = y1;
-    polygons->m[i + 1][2] = z1;
+    x1 = polygons->m[i + 1][0];
+    y1 = polygons->m[i + 1][1];
 
-    polygons->m[i + 2][0] = x2;
-    polygons->m[i + 2][1] = y2;
-    polygons->m[i + 2][2] = z2;
+    x2 = polygons->m[i + 2][0];
+    y2 = polygons->m[i + 2][1];
 
-    int vx0, vy0, vz0, vx1, vy1, vz1;
+    int vx0, vy0, vx1, vy1;
 
     vx0 = x1 - x0;
     vy0 = y1 - y0;
-    vz0 = z1 - z0;
 
     vx1 = x2 - x0;
     vy1 = y2 - y0;
-    vz1 = z2 - z0;
 
-    int nz = vxo * vy1 - vyo * vx1;
+    int nz = vx0 * vy1 - vy0 * vx1;
 
     if (nz > 0){
       draw_line(x0, y0, x1, y1, s, c);
@@ -104,26 +99,31 @@ void add_box( struct matrix * edges,
   z0 = z;
   z1 = z-depth;
 
-  
   //front
-  add_edge(edges, x0, y0, z0, x1, y0, z0);
-  add_edge(edges, x1, y0, z0, x1, y1, z0);
-  add_edge(edges, x1, y1, z0, x0, y1, z0);
-  add_edge(edges, x0, y1, z0, x0, y0, z0);
+  
+  add_polygon(edges, x0, y0, z0, x0, y1, z0, x1, y0, z0);
+  add_polygon(edges, x1, y0, z0, x0, y1, z0, x1, y1, z0);
 
   //back
-  add_edge(edges, x0, y0, z1, x1, y0, z1);
-  add_edge(edges, x1, y0, z1, x1, y1, z1);
-  add_edge(edges, x1, y1, z1, x0, y1, z1);
-  add_edge(edges, x0, y1, z1, x0, y0, z1);
+  
+  add_polygon(edges, x0, y0, z1, x1, y0, z1, x0, y1, z1);
+  add_polygon(edges, x1, y0, z1, x1, y1, z1, x0, y1, z1);
 
-  //sides
-  add_edge(edges, x0, y0, z0, x0, y0, z1);
-  add_edge(edges, x1, y0, z0, x1, y0, z1);
-  add_edge(edges, x1, y1, z0, x1, y1, z1);
-  add_edge(edges, x0, y1, z0, x0, y1, z1);
+  //top
+
+  add_polygon(edges, x0, y0, z0, x1, y0, z0, x1, y0, z1);
+  add_polygon(edges, x0, y0, z0, x1, y0, z1, x0, y0, z1);
+
+  //bottom
+
+  add_polygon(edges, x0, y1, z0, x1, y1, z1, x1, y1, z0);
+  add_polygon(edges, x0, y1, z0, x0, y1, z1, x1, y1, z1);
+
+  //left
+
+  //right
+
 }
-
 
 /*======== void add_sphere() ==========
   Inputs:   struct matrix * points
