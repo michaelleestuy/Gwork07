@@ -27,6 +27,9 @@ void add_polygon( struct matrix *polygons,
                   double x0, double y0, double z0, 
                   double x1, double y1, double z1, 
                   double x2, double y2, double z2 ) {
+  add_point(polygons, x0, y0, z0);
+  add_point(polygons, x1, y1, z1);
+  add_point(polygons, x2, y2, z2);
 }
 
 /*======== void draw_polygons() ==========
@@ -38,7 +41,40 @@ void add_polygon( struct matrix *polygons,
   lines connecting each points to create bounding
   triangles
   ====================*/
-void draw_polygons( struct matrix *polygons, screen s, color c ) {
+void draw_polygons( struct matrix *polygons, screen s, color c ) { //void draw_line(int x0, int y0, int x1, int y1, screen s, color c)
+  int i;
+  for(i = 0; i < polygons->lastcol; i+= 3){
+    int x0, y0, z0, x1, y1, z1, x2, y2, z2;
+    polygons->m[i][0] = x0;
+    polygons->m[i][1] = y0;
+    polygons->m[i][2] = z0;
+
+    polygons->m[i + 1][0] = x1;
+    polygons->m[i + 1][1] = y1;
+    polygons->m[i + 1][2] = z1;
+
+    polygons->m[i + 2][0] = x2;
+    polygons->m[i + 2][1] = y2;
+    polygons->m[i + 2][2] = z2;
+
+    int vx0, vy0, vz0, vx1, vy1, vz1;
+
+    vx0 = x1 - x0;
+    vy0 = y1 - y0;
+    vz0 = z1 - z0;
+
+    vx1 = x2 - x0;
+    vy1 = y2 - y0;
+    vz1 = z2 - z0;
+
+    int nz = vxo * vy1 - vyo * vx1;
+
+    if (nz > 0){
+      draw_line(x0, y0, x1, y1, s, c);
+      draw_line(x0, y0, x2, y2, s, c);
+      draw_line(x2, y2, x1, y1, s, c);
+    }
+  }
 }
 
 
