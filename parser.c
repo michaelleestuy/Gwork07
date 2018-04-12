@@ -232,7 +232,7 @@ void parse_file ( char * filename,
     else if ( strncmp(line, "display", strlen(line)) == 0 ) {
       //printf("DISPLAY\t%s", line);
       clear_screen(s);
-      draw_lines(edges, s, c);
+      draw_polygons(edges, s, c);
       display( s );
     }//end display
 
@@ -241,7 +241,7 @@ void parse_file ( char * filename,
       *strchr(line, '\n') = 0;
       //printf("SAVE\t%s\n", line);
       clear_screen(s);
-      draw_lines(edges, s, c);
+      draw_polygons(edges, s, c);
       save_extension(s, line);
     }//end save
     
