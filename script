@@ -9,14 +9,12 @@ y 20
 move
 150 200 0
 apply
-save
-1.ppm
+display
 #clear the edge matrix, test the sphere
 clear
 sphere
 0 0 0 200
-save
-2.ppm
+display
 #rotate 90 degrees about y to check lines
 ident
 rotate
@@ -24,8 +22,7 @@ y 90
 move
 250 250 0
 apply
-save
-3.ppm
+display
 #reset sphere, rotate 90 degrees about x to check lines
 ident
 move
@@ -37,8 +34,7 @@ x 90
 move
 250 250 0
 apply
-save
-4.ppm
+display
 #reset sphere, rotate to make it look cool
 ident
 move
@@ -52,14 +48,12 @@ z 70
 move
 250 250 0
 apply
-save
-5.ppm
+display
 #clear the edge matrix, test torus
 clear
 torus
 0 0 0 25 150
-save
-6.ppm
+display
 #rotate 90 degrees about y to check lines
 ident
 rotate
@@ -67,8 +61,7 @@ y 90
 move
 250 250 0
 apply
-save
-7.ppm
+display
 #reset torus, rotate 90 degrees about x to check lines
 ident
 move
@@ -80,8 +73,7 @@ x 90
 move
 250 250 0
 apply
-save
-8.ppm
+display
 #reset torus, rotate to make it look cool
 ident
 move
@@ -93,8 +85,7 @@ y 20
 move
 250 250 0
 apply
-save
-9.ppm
+display
 // #pretty? picture
 // clear
 // sphere
